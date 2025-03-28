@@ -22,6 +22,17 @@
       max-width: 400px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+    .paypal-direct {
+      margin-top: 20px;
+    }
+    .paypal-direct a {
+      text-decoration: none;
+      background-color: #0070ba;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
@@ -30,29 +41,38 @@
   <div class="plan">
     <h2>LITE Plan – $9.99/month</h2>
     <p>✓ Up to 500 posts per day<br>✓ Emojis + CSV/Sheets Import</p>
-    <div id="paypal-button-container-P-371483460H121110WM7TQETQ"></div>
+    <div class="paypal-direct">
+      <a href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-371483460H121110WM7TQETQ" target="_blank">
+        🔗 Subscribe with PayPal
+      </a>
+    </div>
+  </div>
+
+  <div class="plan">
+    <h2>PRO Plan – $19.99/month</h2>
+    <p>✓ Unlimited posts<br>✓ Advanced scheduling<br>✓ Telegram/Email notifications<br>✓ Premium support</p>
+    <div id="paypal-button-container-P-6T92583804702984HM7TQ3AQ"></div>
   </div>
 
   <script src="https://www.paypal.com/sdk/js?client-id=ATAybJZWTQEXE9ZWgNzMHPmSm0ZcvTUYWy1f_XAts0iWtPyY9KASfcoArqWKTD8zk7WKWxMUARrOnepV&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+
   <script>
     paypal.Buttons({
       style: {
         shape: 'rect',
-        color: 'blue',
+        color: 'gold',
         layout: 'vertical',
         label: 'subscribe'
       },
       createSubscription: function(data, actions) {
         return actions.subscription.create({
-          plan_id: 'P-371483460H121110WM7TQETQ'
+          plan_id: 'P-6T92583804702984HM7TQ3AQ'
         });
       },
       onApprove: function(data, actions) {
-        alert('✅ Thank you for subscribing! Your subscription ID is: ' + data.subscriptionID);
-        // Redirect to thank you page with payer_email & plan (optional if email is known)
-        // window.location.href = '/thankyou?plan=lite&payer_email=' + YOUR_USER_EMAIL_HERE;
+        alert('✅ PRO subscription successful! Your subscription ID: ' + data.subscriptionID);
       }
-    }).render('#paypal-button-container-P-371483460H121110WM7TQETQ');
+    }).render('#paypal-button-container-P-6T92583804702984HM7TQ3AQ');
   </script>
 </body>
 </html>
