@@ -77,18 +77,25 @@
         return;
       }
 
-      // Placeholder for POST request to your server (Flask backend)
-      alert(`✅ License request sent for ${email}\nPlan: ${plan}\nSubscription ID: ${subscriptionID}`);
-
-      // Example POST call to backend
-      /* fetch('https://your-server.com/generate_license', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      fetch("http://localhost:5000/generate_license", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({ email, plan, subscriptionID })
       })
-      .then(response => response.json())
-      .then(data => alert('📩 License sent to your email!'))
-      .catch(error => alert('Error sending license.')); */
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            alert('📩 License sent to your email!');
+          } else {
+            alert('❌ Error: ' + data.message);
+          }
+        })
+        .catch(error => {
+          alert('❌ Failed to send request.');
+          console.error(error);
+        });
     }
   </script>
 </body>
