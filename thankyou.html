@@ -34,15 +34,62 @@
       color: #777;
       margin-top: 30px;
     }
+    input[type="email"] {
+      padding: 10px;
+      width: 80%;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div class="box">
     <h1>Thank you for your support! 🙏</h1>
-    <p>Hey there! I really appreciate your subscription to my Facebook Auto Poster bot. You just became part of something awesome 💪</p>
-    <p>You’ll receive access and further details shortly via email or Telegram (if applicable).</p>
-    <p>If you have any questions – feel free to reach out!</p>
+    <p id="summary">We appreciate your subscription.</p>
+    <p>Please enter your email below to receive your license:</p>
+    <input type="email" id="email" placeholder="Your email address" required />
+    <br>
+    <button onclick="submitEmail()">Get My License</button>
     <p class="small">- Netanel ❤️</p>
   </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const plan = params.get('plan') || 'unknown';
+    const subscriptionID = params.get('subscriptionID') || 'not provided';
+
+    document.getElementById("summary").innerText = `✅ Subscribed to: ${plan.toUpperCase()} plan\nSubscription ID: ${subscriptionID}`;
+
+    function submitEmail() {
+      const email = document.getElementById('email').value;
+      if (!email || !email.includes('@')) {
+        alert('Please enter a valid email.');
+        return;
+      }
+
+      // Placeholder for POST request to your server (Flask backend)
+      alert(`✅ License request sent for ${email}\nPlan: ${plan}\nSubscription ID: ${subscriptionID}`);
+
+      // Example POST call to backend
+      /* fetch('https://your-server.com/generate_license', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, plan, subscriptionID })
+      })
+      .then(response => response.json())
+      .then(data => alert('📩 License sent to your email!'))
+      .catch(error => alert('Error sending license.')); */
+    }
+  </script>
 </body>
 </html>
